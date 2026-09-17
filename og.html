@@ -1,34 +1,51 @@
 <!DOCTYPE html>
 <html lang="ko"><head><meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600&family=Archivo+Black&family=Bodoni+Moda:ital@1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Archivo:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
-  body{width:1200px;height:630px;overflow:hidden;background:#08080a;color:#f2f0ec;font-family:"Archivo",sans-serif;position:relative}
-  body::after{content:"";position:absolute;inset:0;opacity:.05;mix-blend-mode:screen;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-  .glow{position:absolute;width:700px;height:700px;right:-160px;top:-220px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,59,48,.35),transparent 70%);filter:blur(20px)}
-  .wrap{position:absolute;inset:0;padding:70px 80px;display:flex;flex-direction:column;justify-content:space-between;z-index:2}
-  .top .kick{font-size:18px;letter-spacing:.42em;text-transform:uppercase;color:#ff3b30;margin-bottom:26px}
-  h1{font-family:"Archivo Black",sans-serif;font-size:160px;line-height:.86;letter-spacing:-.02em}
-  .tag{margin-top:26px;font-size:26px;color:#b8b4ac;font-family:"Bodoni Moda",serif;font-style:italic}
-  .bottom{display:flex;justify-content:space-between;align-items:flex-end}
-  .thumbs{display:flex;gap:14px}
-  .thumbs img{width:150px;height:94px;object-fit:cover;border-radius:6px;border:1px solid rgba(242,240,236,.16)}
-  .dom{font-size:22px;letter-spacing:.14em;font-weight:600}
-  .dom b{color:#ff3b30}
+  body{width:1200px;height:630px;overflow:hidden;position:relative;font-family:"Archivo",sans-serif;
+    background:radial-gradient(120% 130% at 25% 20%,#f5443a 0%,#e2231a 45%,#b3120c 100%)}
+  /* 코카콜라 리본 곡선 */
+  .ribbon{position:absolute;left:-5%;right:-5%;top:60%;height:120px;background:rgba(255,255,255,.10);
+    transform:rotate(-8deg);border-radius:50%;filter:blur(2px)}
+  .ribbon2{position:absolute;left:-5%;right:-5%;top:66%;height:70px;background:rgba(255,255,255,.06);
+    transform:rotate(-8deg);border-radius:50%}
+  /* 하이라이트 광택 */
+  .shine{position:absolute;width:640px;height:640px;right:-140px;top:-220px;border-radius:50%;
+    background:radial-gradient(closest-side,rgba(255,255,255,.28),transparent 70%)}
+  /* 기포 */
+  .b{position:absolute;border-radius:50%;background:rgba(255,255,255,.35)}
+  .wrap{position:absolute;inset:0;padding:66px 74px;display:flex;flex-direction:column;justify-content:space-between;z-index:3}
+  .top .kick{font-size:17px;letter-spacing:.4em;text-transform:uppercase;color:rgba(255,255,255,.9);margin-bottom:14px;font-weight:600}
+  .logo{font-family:"Kaushan Script",cursive;font-size:168px;line-height:.9;color:#fff;transform:rotate(-4deg);
+    text-shadow:0 8px 24px rgba(0,0,0,.28),0 1px 0 rgba(255,255,255,.4)}
+  .tag{margin-top:20px;font-size:25px;font-weight:400;color:rgba(255,255,255,.95);letter-spacing:.01em}
+  .bottom{display:flex;justify-content:space-between;align-items:flex-end;z-index:3}
+  .thumbs{display:flex;gap:13px}
+  .thumbs img{width:150px;height:94px;object-fit:cover;border-radius:8px;border:2px solid rgba(255,255,255,.5);box-shadow:0 8px 20px rgba(0,0,0,.25)}
+  .dom{text-align:right}
+  .dom .d{font-size:23px;font-weight:800;letter-spacing:.04em;color:#fff}
+  .dom .by{font-family:"Kaushan Script",cursive;font-size:30px;color:#fff;opacity:.95;margin-top:4px}
 </style></head>
 <body>
-<div class="glow"></div>
-<div class="wrap">
-  <div class="top">
-    <div class="kick">Interactive Design Studio · Seoul</div>
-    <h1>KINETIC</h1>
-    <div class="tag">brands that move, react, and stay.</div>
-  </div>
-  <div class="bottom">
-    <div class="thumbs">
-      <img src="thumbs/surge.jpg"><img src="thumbs/glace.jpg"><img src="thumbs/nue.jpg">
+  <div class="shine"></div>
+  <div class="ribbon"></div>
+  <div class="ribbon2"></div>
+  <div class="b" style="width:60px;height:60px;left:44%;top:16%"></div>
+  <div class="b" style="width:26px;height:26px;left:55%;top:40%"></div>
+  <div class="b" style="width:38px;height:38px;left:38%;top:52%;opacity:.6"></div>
+  <div class="b" style="width:18px;height:18px;left:62%;top:24%;opacity:.7"></div>
+  <div class="wrap">
+    <div class="top">
+      <div class="kick">Interactive Design & Automation · Seoul</div>
+      <div class="logo">Kinetic</div>
+      <div class="tag">brands that move, react, and stay.</div>
     </div>
-    <div class="dom">kinetic.<b>온종일</b>.com</div>
+    <div class="bottom">
+      <div class="thumbs">
+        <img src="thumbs/tarry.jpg"><img src="thumbs/anima.jpg"><img src="thumbs/surge.jpg"><img src="thumbs/nue.jpg">
+      </div>
+      <div class="dom"><div class="d">kinetic.온종일.com</div><div class="by">by TARRY</div></div>
+    </div>
   </div>
-</div>
 </body></html>
