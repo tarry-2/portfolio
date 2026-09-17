@@ -96,7 +96,7 @@
   .thumb iframe{position:absolute;inset:0;width:100%;height:100%;border:0;opacity:0;transition:opacity .5s;pointer-events:none}
   .work.live .thumb iframe{opacity:1}
   .work.live .thumb img{opacity:0}
-  .thumb .badge{position:absolute;top:16px;left:16px;z-index:3;font-size:10px;letter-spacing:.2em;text-transform:uppercase;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);padding:7px 12px;border-radius:100px;border:1px solid var(--line)}
+  .thumb .badge{position:absolute;top:16px;left:16px;z-index:3;color:#fff;font-size:10px;letter-spacing:.2em;text-transform:uppercase;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);padding:7px 12px;border-radius:100px;border:1px solid rgba(255,255,255,.18)}
   .thumb .big{position:absolute;top:14px;right:14px;z-index:4;display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(226,35,26,.85);backdrop-filter:blur(6px);padding:8px 14px;border-radius:100px;border:1px solid rgba(255,255,255,.25);cursor:pointer;box-shadow:0 4px 14px rgba(226,35,26,.4);transition:.25s;font-family:inherit}
   .thumb .big:hover{background:#e2231a;transform:scale(1.05)}
   .group{margin-bottom:78px}
@@ -172,7 +172,7 @@
 <section class="works" id="work">
   <div class="lab"><h2>Selected Work</h2><span>2026</span></div>
   <div class="group">
-    <div class="gtitle"><h3>Film &amp; Animation</h3><span class="gd">정지 이미지가 실제 영상·3D 애니메이션으로 — 풀릴 + 씬별 개별 필름</span><span class="gn">05 WORKS</span></div>
+    <div class="gtitle"><h3>Film &amp; Animation</h3><span class="gd">정지 이미지가 실제 영상·3D 애니메이션으로 — 풀릴 + 씬별 개별 필름 + 실사 브랜드 프로모</span><span class="gn">07 WORKS</span></div>
     <div class="grid">
       <a class="work reveal" href="anima/" data-live="anima/">
         <div class="thumb"><span class="badge">3D Animation · Full Reel</span><button class="big" data-video="anima/story_anima.mp4">⤢ 크게 보기</button><img src="thumbs/anima.jpg" alt="ANIMA"><iframe data-src="anima/" title="ANIMA"></iframe></div>
@@ -193,6 +193,14 @@
       <a class="work reveal" href="motion/" data-live="motion/">
         <div class="thumb"><span class="badge">Motion · AI Film</span><button class="big" data-video="motion/nue_video.mp4">⤢ 크게 보기</button><img src="thumbs/motion.jpg" alt="MOTION"><iframe data-src="motion/" title="MOTION"></iframe></div>
         <div class="info"><div><h3>MOTION</h3><div class="desc">정지 이미지를 실제 움직이는 영상으로 — 머리 흩날림·스킨 글로우·카메라 푸시인. Image-to-video.</div></div><span class="view">View →</span></div>
+      </a>
+      <a class="work reveal" href="999/" data-live="999/">
+        <div class="thumb"><span class="badge">Startup · Brand Film</span><button class="big" data-video="999/v.mp4">⤢ 크게 보기</button><img src="thumbs/999.jpg" alt="999 FOUNDERS"><iframe data-src="999/" title="999 FOUNDERS"></iframe></div>
+        <div class="info"><div><h3>999</h3><div class="desc">999 파운더스 인트로 필름 — 픽사풍 3D 스토리 16초 합본. 스타트업 브랜드 무드영상.</div></div><span class="view">View →</span></div>
+      </a>
+      <a class="work reveal" href="onfarm/" data-live="onfarm/">
+        <div class="thumb"><span class="badge">Commerce · Brand Promo</span><button class="big" data-video="onfarm/v.mp4">⤢ 크게 보기</button><img src="thumbs/onfarm.jpg" alt="온종일팜"><iframe data-src="onfarm/" title="온종일팜"></iframe></div>
+        <div class="info"><div><h3>온종일팜</h3><div class="desc">산지직송 커머스 온종일팜 브랜드 프로모 — 제품·배송·신뢰를 잇는 33초 풀 영상.</div></div><span class="view">View →</span></div>
       </a>
     </div>
   </div>
@@ -300,6 +308,7 @@
       const isMobile=matchMedia('(max-width:820px)').matches;
       fs.addEventListener('click',()=>{
         if(isMobile || !document.fullscreenEnabled){
+          if(!vfv.src.endsWith('tarry/tarry_film.mp4')) vfv.src='tarry/tarry_film.mp4';
           vfull.classList.add('show'); vfv.currentTime=0; vfv.muted=false; vfv.play();
           if(screen.orientation&&screen.orientation.lock){ screen.orientation.lock('portrait').catch(()=>{}); }
         } else {

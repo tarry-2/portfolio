@@ -94,6 +94,7 @@ new THREE.TextureLoader().load('cola_b.webp',t=>{t.minFilter=t.magFilter=THREE.L
 function rs(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h);U.uPA.value=w/h;}addEventListener('resize',rs);rs();
 let tx=.5,ty=.5,mx=.5,my=.5,lx=.5,ly=.5;const cur=document.getElementById('cur');
 addEventListener('mousemove',e=>{tx=e.clientX/innerWidth;ty=1-e.clientY/innerHeight;cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';});
+addEventListener('touchmove',e=>{const t=e.touches[0];if(!t)return;tx=t.clientX/innerWidth;ty=1-t.clientY/innerHeight;cur.style.left=t.clientX+'px';cur.style.top=t.clientY+'px';},{passive:true});addEventListener('touchstart',e=>{const t=e.touches[0];if(!t)return;tx=t.clientX/innerWidth;ty=1-t.clientY/innerHeight;cur.style.left=t.clientX+'px';cur.style.top=t.clientY+'px';},{passive:true});
 const clk=new THREE.Clock();
 (function loop(){requestAnimationFrame(loop);mx+=(tx-mx)*.1;my+=(ty-my)*.1;const v=Math.hypot(mx-lx,my-ly);lx=mx;ly=my;U.uMouse.value.set(mx,my);U.uMV.value+=(Math.min(v*10,1)-U.uMV.value)*.12;U.uTime.value=clk.getElapsedTime();renderer.render(scene,camera);})();
 </script>

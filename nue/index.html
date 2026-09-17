@@ -144,6 +144,13 @@ addEventListener('mousemove',e=>{
   tx=e.clientX/innerWidth; ty=1.0-e.clientY/innerHeight;
   cur.style.left=e.clientX+'px'; cur.style.top=e.clientY+'px';
 });
+function touchMove(e){
+  const t=e.touches[0]; if(!t)return;
+  tx=t.clientX/innerWidth; ty=1.0-t.clientY/innerHeight;
+  cur.style.left=t.clientX+'px'; cur.style.top=t.clientY+'px';
+}
+addEventListener('touchmove',touchMove,{passive:true});
+addEventListener('touchstart',touchMove,{passive:true});
 addEventListener('mousedown',()=>cur.classList.add('big'));
 addEventListener('mouseup',()=>cur.classList.remove('big'));
 
