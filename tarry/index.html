@@ -2,99 +2,88 @@
 <html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TARRY — Meet the Developer</title>
 <meta property="og:title" content="TARRY — Meet the Developer">
-<meta property="og:description" content="자동화·홈페이지·랜딩·방판/네트워크 전산 전문 개발자. PUBLY · TRAFFIC · MOCA · GOLDENSEED.">
+<meta property="og:description" content="자동화·홈페이지·랜딩·방판/네트워크 전산 전문 개발자. PUBLY · TRAFFIC · MOCA · GOLDENSEED · BLOGAUTOPRO.">
 <meta property="og:image" content="https://kinetic.xn--zk5biyyw.com/tarry/poster.jpg">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;600;800&family=Cormorant+Garamond:ital,wght@1,500&family=Fraunces:ital,opsz,wght@1,9..144,500&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
   html,body{height:100%;overflow:hidden;background:#08070c;cursor:default}
   video{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
-  .grade{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(130% 130% at 50% 40%,transparent 46%,rgba(6,5,10,.62))}
+  .grade{position:fixed;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(6,5,10,.5) 0%,transparent 30%,transparent 62%,rgba(6,5,10,.82) 100%)}
   .ui{position:fixed;inset:0;z-index:10;pointer-events:none;color:#fff;font-family:"Archivo",sans-serif;font-weight:300;text-shadow:0 2px 30px rgba(0,0,0,.5)}
   .ui a{pointer-events:auto;color:inherit;text-decoration:none}
-  .top{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:30px 44px;font-size:12px;letter-spacing:.3em;text-transform:uppercase}
-  .logo{font-weight:800;letter-spacing:.32em;font-size:20px}
-  .back{opacity:.75;font-size:11px;letter-spacing:.24em}
-  /* 명칭 라벨 칩 (1씬에서 등장) */
-  .stack{position:absolute;top:50%;right:46px;transform:translateY(-50%);display:flex;flex-direction:column;gap:12px;align-items:flex-end;opacity:0;transition:opacity 1s ease}
-  .stack.show{opacity:1}
-  .chip{display:flex;align-items:center;gap:10px;background:rgba(12,12,18,.5);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.14);border-radius:100px;padding:9px 16px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;transform:translateX(24px);opacity:0;animation:chipin .6s forwards}
-  .chip i{width:7px;height:7px;border-radius:50%;display:inline-block}
-  .stack.show .chip:nth-child(1){animation-delay:.1s}.stack.show .chip:nth-child(2){animation-delay:.25s}.stack.show .chip:nth-child(3){animation-delay:.4s}.stack.show .chip:nth-child(4){animation-delay:.55s}
-  @keyframes chipin{to{transform:translateX(0);opacity:1}}
-  /* 자막 */
-  .cap{position:absolute;left:46px;bottom:120px;max-width:600px;opacity:0;transform:translateY(16px);transition:opacity .7s,transform .7s}
-  .cap.show{opacity:1;transform:none}
-  .cap .k{font-size:12px;letter-spacing:.4em;text-transform:uppercase;color:#c9a24b;margin-bottom:12px}
-  .cap h2{font-family:"Fraunces",serif;font-style:italic;font-weight:500;font-size:clamp(34px,5.5vw,72px);line-height:1}
-  .foot{position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-between;padding:32px 44px;font-size:11px;letter-spacing:.26em;text-transform:uppercase;opacity:.8}
-  /* 상시 금장 서명 (작게, 항상) */
-  .mark{position:absolute;top:26px;left:50%;transform:translateX(-50%);font-family:"Cormorant Garamond",serif;font-style:italic;font-size:20px;
+  .top{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:30px 44px;font-size:11px;letter-spacing:.26em;text-transform:uppercase}
+  .top a{opacity:.75}.top a:hover{opacity:1}
+  .mark{position:absolute;top:26px;left:50%;transform:translateX(-50%);font-family:"Cormorant Garamond",serif;font-style:italic;font-size:22px;
     background:linear-gradient(180deg,#f7e6b0,#c9a24b);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-  /* 엔딩 금장 오버레이 (마지막에 딱, 고정) */
+  /* 우측 프로그램 칩 5개 */
+  .stack{position:absolute;top:50%;right:44px;transform:translateY(-50%);display:flex;flex-direction:column;gap:11px;align-items:flex-end}
+  .chip{display:flex;align-items:center;gap:10px;background:rgba(12,12,18,.5);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.16);border-radius:100px;padding:9px 16px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;transform:translateX(24px);opacity:0;animation:chipin .6s forwards}
+  .chip i{width:7px;height:7px;border-radius:50%;display:inline-block}
+  .chip:nth-child(1){animation-delay:.6s}.chip:nth-child(2){animation-delay:.75s}.chip:nth-child(3){animation-delay:.9s}.chip:nth-child(4){animation-delay:1.05s}.chip:nth-child(5){animation-delay:1.2s}
+  @keyframes chipin{to{transform:translateX(0);opacity:1}}
+  /* 좌하단 타이틀 */
+  .cap{position:absolute;left:46px;bottom:118px;max-width:620px;opacity:0;animation:fadeup 1s .5s forwards}
+  .cap .k{font-size:12px;letter-spacing:.4em;text-transform:uppercase;color:#c9a24b;margin-bottom:12px}
+  .cap h2{font-family:"Fraunces",serif;font-style:italic;font-weight:500;font-size:clamp(34px,5.5vw,74px);line-height:1}
+  @keyframes fadeup{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+  /* 하단 바: 좌 서비스 / 우 회사명 */
+  .foot{position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-end;padding:32px 44px;font-size:11px;letter-spacing:.26em;text-transform:uppercase;opacity:.85}
+  .corp{font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:500;font-size:19px;letter-spacing:.06em;text-transform:none;
+    background:linear-gradient(180deg,#f7e6b0,#c9a24b);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;opacity:0;animation:fadeup 1s 1.4s forwards}
+  /* 엔딩 금장 */
   .end{position:fixed;inset:0;z-index:30;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    background:radial-gradient(120% 120% at 50% 45%,rgba(18,16,12,.92),rgba(6,5,4,.97));opacity:0;transition:opacity 1.1s ease;pointer-events:none}
-  .end.show{opacity:1}
-  .end .tag{font-family:"Archivo",sans-serif;font-weight:300;font-size:16px;letter-spacing:.5em;text-transform:uppercase;color:#9a8f7a;margin-bottom:24px;padding-left:.5em}
+    background:radial-gradient(120% 120% at 50% 45%,rgba(18,16,12,.93),rgba(6,5,4,.98));opacity:0;transition:opacity 1.1s ease;pointer-events:none}
+  .end.show{opacity:1;pointer-events:auto}
+  .end .tag{font-family:"Archivo",sans-serif;font-weight:300;font-size:15px;letter-spacing:.5em;text-transform:uppercase;color:#9a8f7a;margin-bottom:22px;padding-left:.5em}
   .end .sig{font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:500;font-size:clamp(70px,13vw,150px);line-height:1;
     background:linear-gradient(180deg,#f9ebbe 0%,#e7c866 42%,#c9a24b 62%,#8a6d2e 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
     filter:drop-shadow(0 6px 34px rgba(201,162,75,.4))}
-  .end .line{width:130px;height:1px;background:linear-gradient(90deg,transparent,#c9a24b,transparent);margin-top:34px}
-  .end .sub{font-family:"Archivo",sans-serif;font-weight:300;font-size:13px;letter-spacing:.34em;text-transform:uppercase;color:#7a705e;margin-top:22px}
-  .replay{margin-top:40px;pointer-events:auto;cursor:pointer;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#c9a24b;border:1px solid rgba(201,162,75,.5);border-radius:100px;padding:14px 30px;background:none;font-family:inherit;transition:.3s}
+  .end .line{width:130px;height:1px;background:linear-gradient(90deg,transparent,#c9a24b,transparent);margin-top:32px}
+  .end .sub{font-family:"Archivo",sans-serif;font-weight:300;font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:#7a705e;margin-top:20px}
+  .replay{margin-top:38px;cursor:pointer;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#c9a24b;border:1px solid rgba(201,162,75,.5);border-radius:100px;padding:14px 30px;background:none;font-family:inherit;transition:.3s}
   .replay:hover{background:rgba(201,162,75,.14)}
-  @media(max-width:700px){.stack{right:20px;transform:translateY(-50%) scale(.82)}.cap{left:22px;bottom:96px}.top{padding:20px}}
+  @media(max-width:700px){
+    .stack{right:16px;gap:8px;transform:translateY(-50%) scale(.82)}
+    .cap{left:22px;bottom:150px}
+    .foot{flex-direction:column;align-items:flex-start;gap:10px;padding:22px}
+    .top{padding:18px 22px}
+  }
 </style></head><body>
 <video id="film" src="tarry_film.mp4" autoplay muted playsinline poster="poster.jpg"></video>
 <div class="grade"></div>
 <div class="ui">
   <div class="mark">by TARRY</div>
-  <div class="top"><a class="back" href="../#work">← Works</a><a class="back" href="../#contact">Contact</a></div>
+  <div class="top"><a href="../#work">← Works</a><a href="../#contact">Contact</a></div>
 
-  <div class="stack" id="stack">
+  <div class="stack">
     <div class="chip"><i style="background:#4a9eff"></i>PUBLY</div>
     <div class="chip"><i style="background:#ff5a3c"></i>TRAFFIC</div>
     <div class="chip"><i style="background:#33c76a"></i>MOCA</div>
     <div class="chip"><i style="background:#e7c866"></i>GOLDENSEED</div>
+    <div class="chip"><i style="background:#a97bff"></i>BLOGAUTOPRO</div>
   </div>
 
-  <div class="cap" id="cap"><div class="k" id="capk">Automation Engineer</div><h2 id="capt">한 사람이,<br>네 개의 시스템을.</h2></div>
-  <div class="foot"><div>Homepage · Landing · Automation · POS · Network</div><div>TARRY Studio</div></div>
+  <div class="cap"><div class="k">Automation Engineer · Full-stack</div><h2>한 사람이,<br>모든 시스템을.</h2></div>
+
+  <div class="foot">
+    <div>Homepage · Landing · Automation · POS · Network</div>
+    <div class="corp">ONJONGIL CORPORATION</div>
+  </div>
 </div>
 
 <div class="end" id="end">
   <div class="tag">Automation · Web · Systems</div>
   <div class="sig">by TARRY</div>
   <div class="line"></div>
-  <div class="sub">End-to-end Development</div>
+  <div class="sub">ONJONGIL CORPORATION · End-to-end Development</div>
   <button class="replay" id="replay">↻ Replay</button>
 </div>
 
 <script>
-  const v=document.getElementById('film'), stack=document.getElementById('stack'), cap=document.getElementById('cap'),
-        capk=document.getElementById('capk'), capt=document.getElementById('capt'), end=document.getElementById('end');
-  // 씬 타이밍(초): 1 wall / 2 flow / 3 meeting / 4 trust
-  const scenes=[
-    {t:0.4, k:"Automation Engineer", h:"한 사람이,<br>네 개의 시스템을.", chips:true},
-    {t:5.0, k:"In the flow", h:"코드 한 줄이,<br>결과를 바꿉니다.", chips:false},
-    {t:9.4, k:"With the client", h:"복잡함을,<br>쉽게 설명합니다.", chips:false},
-    {t:13.8, k:"Built on trust", h:"믿고 맡길 수 있는<br>개발.", chips:false},
-  ];
-  let idx=-1;
-  function apply(i){
-    idx=i; const s=scenes[i];
-    capk.innerHTML=s.k; capt.innerHTML=s.h;
-    cap.classList.add('show');
-    stack.classList.toggle('show', s.chips);
-  }
-  v.addEventListener('timeupdate',()=>{
-    let cur=0;
-    for(let i=0;i<scenes.length;i++){ if(v.currentTime>=scenes[i].t) cur=i; }
-    if(cur!==idx){ cap.classList.remove('show'); setTimeout(()=>apply(cur),260); }
-  });
-  v.addEventListener('ended',()=>{ cap.classList.remove('show'); stack.classList.remove('show'); end.classList.add('show'); });
+  const v=document.getElementById('film'), end=document.getElementById('end');
+  v.addEventListener('ended',()=>end.classList.add('show'));
   document.getElementById('replay').addEventListener('click',()=>{ end.classList.remove('show'); v.currentTime=0; v.play(); });
-  // autoplay 보장
   v.play().catch(()=>{ document.body.addEventListener('click',()=>v.play(),{once:true}); });
 </script>
 </body></html>
