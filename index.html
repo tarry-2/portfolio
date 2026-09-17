@@ -9,18 +9,22 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600&family=Archivo+Black&family=Bodoni+Moda:ital@1&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#08080a;--fg:#f2f0ec;--dim:#8a877f;--line:rgba(242,240,236,.12);--accent:#ff3b30}
+  :root{--bg:#08080a;--fg:#f2f0ec;--dim:#8a877f;--line:rgba(242,240,236,.12);--accent:#ff3b30;--card:#0c0c0f}
+  [data-theme="light"]{--bg:#efece3;--fg:#141318;--dim:#6c6860;--line:rgba(0,0,0,.13);--card:#ffffff}
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{background:var(--bg);color:var(--fg);font-family:"Archivo",sans-serif;font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased}
   body::after{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.04;mix-blend-mode:screen;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  [data-theme="light"] body::after{mix-blend-mode:multiply;opacity:.055}
   ::selection{background:var(--accent);color:#fff}
   a{color:inherit;text-decoration:none}
 
-  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:26px 40px;mix-blend-mode:difference}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:26px 40px;color:var(--fg);background:linear-gradient(var(--bg),transparent);transition:color .4s}
   nav .logo{font-family:"Archivo Black",sans-serif;font-size:17px;letter-spacing:.2em}
-  nav .menu{display:flex;gap:30px;font-size:12px;letter-spacing:.22em;text-transform:uppercase}
+  nav .menu{display:flex;gap:30px;align-items:center;font-size:12px;letter-spacing:.22em;text-transform:uppercase}
+  .theme{background:none;border:1px solid currentColor;color:inherit;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:12px;line-height:1;pointer-events:auto;font-family:inherit;display:flex;align-items:center;justify-content:center;transition:opacity .3s}
+  .theme:hover{opacity:.55}
   nav .menu a:hover{opacity:.55}
 
   /* hero */
@@ -43,7 +47,7 @@
   .works .lab h2{font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--dim)}
   .works .lab span{font-size:13px;color:var(--dim)}
   .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
-  .work{position:relative;display:block;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:#0c0c0f;
+  .work{position:relative;display:block;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--card);
     opacity:0;transform:translateY(40px);transition:opacity .9s,transform .9s cubic-bezier(.2,.9,.2,1),border-color .4s}
   .work.in{opacity:1;transform:none}
   .grid .work:nth-child(2){transition-delay:.1s}
@@ -75,7 +79,7 @@
 <body>
 <nav>
   <div class="logo">KINETIC</div>
-  <div class="menu"><a href="#work">Work</a><a href="#">Studio</a><a href="#contact">Contact</a></div>
+  <div class="menu"><a href="#work">Work</a><a href="#">Studio</a><a href="#contact">Contact</a><button class="theme" id="themeBtn" aria-label="테마 전환">☾</button></div>
 </nav>
 
 <header class="hero">
@@ -117,6 +121,19 @@
 </footer>
 
 <script>
+  // theme toggle (dark default, remembers choice)
+  (function(){
+    const root=document.documentElement, btn=document.getElementById('themeBtn');
+    if(localStorage.getItem('kinetic-theme')==='light') root.setAttribute('data-theme','light');
+    const sync=()=>btn.textContent=root.getAttribute('data-theme')==='light'?'☀':'☾';
+    sync();
+    btn.addEventListener('click',()=>{
+      const light=root.getAttribute('data-theme')!=='light';
+      if(light)root.setAttribute('data-theme','light');else root.removeAttribute('data-theme');
+      localStorage.setItem('kinetic-theme',light?'light':'dark');
+      sync();
+    });
+  })();
   // reveal
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.15});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
