@@ -10,7 +10,10 @@
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
   html,body{height:100%;overflow:hidden;background:#0c0a09;cursor:none}
-  #gl{position:fixed;inset:0;width:100%;height:100%;display:block}
+  /* blurred fill behind the contained canvas (portrait) so nothing looks cut off */
+  .bgfill{position:fixed;inset:0;z-index:0;background-size:cover;background-position:center;
+    filter:blur(34px) brightness(.5) saturate(1.1);transform:scale(1.15)}
+  #gl{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1;display:block}
 
   /* ---- minimal UI overlay (Rhode/Byredo style) ---- */
   .ui{position:fixed;inset:0;z-index:10;pointer-events:none;color:#f5f1ea;
@@ -37,6 +40,7 @@
 </style>
 </head>
 <body>
+<div class="bgfill" id="bgfill" style="background-image:url(nue_hero.webp)"></div>
 <canvas id="gl"></canvas>
 
 <div class="ui">
@@ -128,11 +132,16 @@ new THREE.TextureLoader().load('nue_hero.webp',t=>{
   t.minFilter=THREE.LinearFilter; t.magFilter=THREE.LinearFilter;
   uniforms.uTex.value=t;
   uniforms.uImgAspect.value=t.image.width/t.image.height;
+  resize();
 });
 
 function resize(){
-  const w=innerWidth,h=innerHeight;
+  const vw=innerWidth,vh=innerHeight, ia=uniforms.uImgAspect.value||1216/832;
+  let w=vw,h=vh;
+  // portrait / narrow screens: CONTAIN so the full composition shows (no cut-off)
+  if(vw/vh < ia){ w=vw; h=Math.round(vw/ia); }
   renderer.setSize(w,h);
+  canvas.style.width=w+'px'; canvas.style.height=h+'px';
   uniforms.uPlaneAspect.value=w/h;
 }
 addEventListener('resize',resize); resize();

@@ -10,7 +10,7 @@
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
   html,body{height:100%;overflow:hidden;background:#05070a;cursor:none}
-  #gl{position:fixed;inset:0;width:100%;height:100%;display:block}
+  .bgfill{position:fixed;inset:0;z-index:0;background-size:cover;background-position:center;filter:blur(34px) brightness(.5) saturate(1.1);transform:scale(1.15)}#gl{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1;display:block}
   .ui{position:fixed;inset:0;z-index:10;pointer-events:none;color:#eaf2f6;font-family:"Archivo",sans-serif;font-weight:300}
   .ui a{color:inherit;text-decoration:none;pointer-events:auto}
   .top{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:32px 44px;font-size:12px;letter-spacing:.3em;text-transform:uppercase}
@@ -25,7 +25,7 @@
 </style>
 </head>
 <body>
-<canvas id="gl"></canvas>
+<div class="bgfill" id="bgfill"></div><canvas id="gl"></canvas>
 <div class="ui">
   <div class="logo">GLACÉ</div>
   <div class="top"><div class="grp"><a href="#">Flavors</a><a href="#">Story</a></div><div class="grp"><a href="#">Store</a><a href="#">Cart (0)</a></div></div>
@@ -90,8 +90,8 @@ void main(){
 }`;
 const mat=new THREE.ShaderMaterial({uniforms:U,vertexShader:vert,fragmentShader:frag});
 scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2,2),mat));
-new THREE.TextureLoader().load('cola_a.webp',t=>{t.minFilter=t.magFilter=THREE.LinearFilter;U.uTex.value=t;U.uIA.value=t.image.width/t.image.height;});
-function rs(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h);U.uPA.value=w/h;}addEventListener('resize',rs);rs();
+new THREE.TextureLoader().load('cola_a.webp',t=>{t.minFilter=t.magFilter=THREE.LinearFilter;U.uTex.value=t;U.uIA.value=t.image.width/t.image.height;var _b=document.getElementById("bgfill");if(_b)_b.style.backgroundImage="url("+t.image.src+")";rs();});
+function rs(){const vw=innerWidth,vh=innerHeight,ia=U.uIA.value||1216/832;let w=vw,h=vh;if(vw/vh<ia){w=vw;h=Math.round(vw/ia);}renderer.setSize(w,h);renderer.domElement.style.width=w+"px";renderer.domElement.style.height=h+"px";U.uPA.value=w/h;}addEventListener('resize',rs);rs();
 let tx=.5,ty=.5,mx=.5,my=.5,lx=.5,ly=.5;const cur=document.getElementById('cur');
 addEventListener('mousemove',e=>{tx=e.clientX/innerWidth;ty=1-e.clientY/innerHeight;cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';});
 addEventListener('touchmove',e=>{const t=e.touches[0];if(!t)return;tx=t.clientX/innerWidth;ty=1-t.clientY/innerHeight;cur.style.left=t.clientX+'px';cur.style.top=t.clientY+'px';},{passive:true});addEventListener('touchstart',e=>{const t=e.touches[0];if(!t)return;tx=t.clientX/innerWidth;ty=1-t.clientY/innerHeight;cur.style.left=t.clientX+'px';cur.style.top=t.clientY+'px';},{passive:true});

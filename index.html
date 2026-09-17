@@ -29,7 +29,9 @@
   [data-theme="light"]{--bg:#efece3;--fg:#141318;--dim:#6c6860;--line:rgba(0,0,0,.13);--card:#ffffff}
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--fg);font-family:"Archivo",sans-serif;font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  body{background:var(--bg);color:var(--fg);font-family:"Archivo",sans-serif;font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased;
+    -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+  img,video{-webkit-user-drag:none;user-select:none;-webkit-touch-callout:none}
   body::after{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.04;mix-blend-mode:screen;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
   [data-theme="light"] body::after{mix-blend-mode:multiply;opacity:.055}
@@ -96,6 +98,9 @@
   .thumb iframe{position:absolute;inset:0;width:100%;height:100%;border:0;opacity:0;transition:opacity .5s;pointer-events:none}
   .work.live .thumb iframe{opacity:1}
   .work.live .thumb img{opacity:0}
+  .thumb video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s;pointer-events:none}
+  .work.playing .thumb video{opacity:1}
+  .work.playing .thumb img{opacity:0}
   .thumb .badge{position:absolute;top:16px;left:16px;z-index:3;color:#fff;font-size:10px;letter-spacing:.2em;text-transform:uppercase;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);padding:7px 12px;border-radius:100px;border:1px solid rgba(255,255,255,.18)}
   .thumb .big{position:absolute;top:14px;right:14px;z-index:4;display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(226,35,26,.85);backdrop-filter:blur(6px);padding:8px 14px;border-radius:100px;border:1px solid rgba(255,255,255,.25);cursor:pointer;box-shadow:0 4px 14px rgba(226,35,26,.4);transition:.25s;font-family:inherit}
   .thumb .big:hover{background:#e2231a;transform:scale(1.05)}
@@ -268,6 +273,15 @@
       </a>
     </div>
   </div>
+  <div class="group">
+    <div class="gtitle"><h3>⑤ Drag &amp; Spin</h3><span class="gd">잡고 돌리는 관성 물리 — 커서·손가락으로 직접 조작하는 인터랙션</span><span class="gn">01 WORKS</span></div>
+    <div class="grid">
+      <a class="work reveal" href="yuan/" data-live="yuan/">
+        <div class="thumb"><span class="badge">Chinese · Rotating Table</span><img src="thumbs/yuan.jpg" alt="YUÁN"><iframe data-src="yuan/" title="YUÁN"></iframe></div>
+        <div class="info"><div><h3>YUÁN 圓</h3><div class="desc">중식당 회전 원탁을 잡고 돌리면 관성으로 스핀 — 앞에 온 요리가 확대되는 드래그 물리 셀렉터.</div></div><span class="view">View →</span></div>
+      </a>
+    </div>
+  </div>
       <a class="work reveal" href="#contact" style="display:flex;align-items:center;justify-content:center;min-height:200px">
         <div style="text-align:center"><div class="desc" style="margin:0 auto 10px">Your brand, next.</div><span class="view">Start a project →</span></div>
       </a>
@@ -330,10 +344,30 @@
   // reveal
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.15});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-  // hover → load live iframe preview
+  // 영상 카드: 스크롤로 화면에 들어오면 미리보기 영상 자동재생 (모바일 hover 없음 대응)
+  const vidCards=[];
+  document.querySelectorAll('.work .big[data-video]').forEach(btn=>{
+    const w=btn.closest('.work'), thumb=btn.closest('.thumb');
+    const v=document.createElement('video');
+    v.muted=true; v.loop=true; v.playsInline=true; v.setAttribute('playsinline','');
+    v.preload='none'; v.dataset.src=btn.dataset.video;
+    const img=thumb.querySelector('img'); v.poster=img?img.getAttribute('src'):'';
+    thumb.insertBefore(v, thumb.querySelector('iframe')||null);
+    w._vid=v; vidCards.push(w);
+  });
+  const vio=new IntersectionObserver(es=>es.forEach(e=>{
+    const w=e.target, v=w._vid; if(!v)return;
+    if(e.isIntersecting){ if(!v.src)v.src=v.dataset.src; w.classList.add('playing'); v.play().catch(()=>{}); }
+    else{ w.classList.remove('playing'); v.pause(); }
+  }),{threshold:.55});
+  vidCards.forEach(w=>vio.observe(w));
+  // hover → 데스크탑 미리보기 (영상 카드=영상 재생, 그 외=라이브 iframe)
   document.querySelectorAll('.work[data-live]').forEach(w=>{
-    const f=w.querySelector('iframe'); let t;
-    w.addEventListener('mouseenter',()=>{ t=setTimeout(()=>{ if(!f.src)f.src=f.dataset.src; w.classList.add('live'); },220); });
+    let t; const f=w.querySelector('iframe'), v=w._vid;
+    w.addEventListener('mouseenter',()=>{ t=setTimeout(()=>{
+      if(v){ if(!v.src)v.src=v.dataset.src; w.classList.add('playing'); v.play().catch(()=>{}); }
+      else { if(f&&!f.src)f.src=f.dataset.src; w.classList.add('live'); }
+    },200); });
     w.addEventListener('mouseleave',()=>{ clearTimeout(t); w.classList.remove('live'); });
   });
   // service worker (offline cache, keep)
