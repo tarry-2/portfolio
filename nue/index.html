@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nue — living skin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500&family=Newsreader:ital,opsz,wght@1,6..72,300;0,6..72,300&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;overflow:hidden;background:#0c0a09;cursor:none}
+  #gl{position:fixed;inset:0;width:100%;height:100%;display:block}
+
+  /* ---- minimal UI overlay (Rhode/Byredo style) ---- */
+  .ui{position:fixed;inset:0;z-index:10;pointer-events:none;color:#f5f1ea;
+      font-family:"Archivo",sans-serif;font-weight:300;mix-blend-mode:difference}
+  .ui a{color:inherit;text-decoration:none;pointer-events:auto}
+  .top{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:34px 44px;
+       font-size:12px;letter-spacing:.28em;text-transform:uppercase}
+  .top .grp{display:flex;gap:34px}
+  .logo{position:absolute;top:28px;left:50%;transform:translateX(-50%);
+        font-family:"Newsreader",serif;font-style:italic;font-weight:300;font-size:30px;letter-spacing:.02em}
+  .bottom{position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-end;padding:38px 44px}
+  .tag{font-family:"Newsreader",serif;font-style:italic;font-size:28px;line-height:1.1;max-width:340px;opacity:.95}
+  .meta{font-size:11px;letter-spacing:.26em;text-transform:uppercase;text-align:right;line-height:2}
+
+  /* custom cursor dot */
+  .cursor{position:fixed;z-index:20;width:9px;height:9px;border-radius:50%;background:#fff;
+          transform:translate(-50%,-50%);pointer-events:none;mix-blend-mode:difference;transition:width .3s,height .3s}
+  .cursor.big{width:46px;height:46px;background:transparent;border:1px solid rgba(255,255,255,.7)}
+
+  .hint{position:absolute;bottom:38px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:.3em;text-transform:uppercase;opacity:.5;animation:pulse 3s infinite}
+  @keyframes pulse{0%,100%{opacity:.25}50%{opacity:.6}}
+
+  @media(max-width:700px){.tag{font-size:20px}.top{padding:22px}.bottom{padding:24px}.grp{gap:18px}}
+</style>
+</head>
+<body>
+<canvas id="gl"></canvas>
+
+<div class="ui">
+  <div class="logo">nue</div>
+  <div class="top">
+    <div class="grp"><a href="#">Shop</a><a href="#">The Ritual</a></div>
+    <div class="grp"><a href="#">Search</a><a href="#">Cart (0)</a></div>
+  </div>
+  <div class="bottom">
+    <div class="tag">skin, brought<br>back to life.</div>
+    <div class="meta">N°01 · Living Serum<br>Move your cursor</div>
+  </div>
+</div>
+<div class="cursor" id="cur"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const canvas=document.getElementById('gl');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+const scene=new THREE.Scene();
+const camera=new THREE.OrthographicCamera(-1,1,1,-1,0,1);
+
+const uniforms={
+  uTex:{value:null},
+  uMouse:{value:new THREE.Vector2(0.5,0.5)},
+  uMouseV:{value:0.0},
+  uTime:{value:0},
+  uPlaneAspect:{value:1},
+  uImgAspect:{value:1.5},
+};
+
+const vert=`varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position,1.0);}`;
+const frag=`
+precision highp float;
+varying vec2 vUv;
+uniform sampler2D uTex;
+uniform vec2 uMouse;
+uniform float uMouseV, uTime, uPlaneAspect, uImgAspect;
+
+float grain(vec2 p){return fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453);}
+
+void main(){
+  // background-size: cover
+  vec2 uv=vUv;
+  float rp=uPlaneAspect, ri=uImgAspect;
+  if(rp>ri){ uv.y=(uv.y-0.5)*(ri/rp)+0.5; }
+  else     { uv.x=(uv.x-0.5)*(rp/ri)+0.5; }
+
+  // aspect-corrected mouse distance
+  vec2 asp=vec2(uPlaneAspect,1.0);
+  float d=distance(vUv*asp,uMouse*asp);
+  float infl=smoothstep(0.34,0.0,d);
+
+  // ripple from cursor (liquid / serum)
+  float wave=sin(d*38.0 - uTime*3.6);
+  vec2 dir=normalize(vUv-uMouse+1e-4);
+  uv+=dir*wave*0.012*infl*(0.5+uMouseV*3.0);
+
+  // idle sheen — always gently flowing
+  uv.x+=sin(uv.y*11.0+uTime*0.55)*0.0017;
+  uv.y+=cos(uv.x*9.0 +uTime*0.42)*0.0015;
+
+  // chromatic split near cursor for a wet, premium feel
+  float ca=infl*0.005*(0.6+uMouseV*4.0);
+  vec3 col;
+  col.r=texture2D(uTex,uv+vec2(ca,0.0)).r;
+  col.g=texture2D(uTex,uv).g;
+  col.b=texture2D(uTex,uv-vec2(ca,0.0)).b;
+
+  // warm grade + soft highlight bloom where cursor is
+  col*=1.0+infl*0.10;
+  col=mix(col,col*vec3(1.04,1.0,0.96),0.4);
+
+  // vignette
+  float vig=smoothstep(1.15,0.35,distance(vUv,vec2(0.5)));
+  col*=0.82+0.18*vig;
+
+  // film grain
+  col+=(grain(vUv*vec2(900.0,540.0)+uTime)-0.5)*0.045;
+
+  gl_FragColor=vec4(col,1.0);
+}`;
+
+const mat=new THREE.ShaderMaterial({uniforms,vertexShader:vert,fragmentShader:frag});
+scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2,2),mat));
+
+new THREE.TextureLoader().load('nue_hero.webp',t=>{
+  t.minFilter=THREE.LinearFilter; t.magFilter=THREE.LinearFilter;
+  uniforms.uTex.value=t;
+  uniforms.uImgAspect.value=t.image.width/t.image.height;
+});
+
+function resize(){
+  const w=innerWidth,h=innerHeight;
+  renderer.setSize(w,h);
+  uniforms.uPlaneAspect.value=w/h;
+}
+addEventListener('resize',resize); resize();
+
+// mouse (smoothed) + velocity
+let tx=0.5,ty=0.5,mx=0.5,my=0.5,lastx=0.5,lasty=0.5;
+const cur=document.getElementById('cur');
+addEventListener('mousemove',e=>{
+  tx=e.clientX/innerWidth; ty=1.0-e.clientY/innerHeight;
+  cur.style.left=e.clientX+'px'; cur.style.top=e.clientY+'px';
+});
+addEventListener('mousedown',()=>cur.classList.add('big'));
+addEventListener('mouseup',()=>cur.classList.remove('big'));
+
+const clock=new THREE.Clock();
+function loop(){
+  requestAnimationFrame(loop);
+  mx+=(tx-mx)*0.08; my+=(ty-my)*0.08;
+  const v=Math.hypot(mx-lastx,my-lasty); lastx=mx; lasty=my;
+  uniforms.uMouse.value.set(mx,my);
+  uniforms.uMouseV.value+=(Math.min(v*8.0,1.0)-uniforms.uMouseV.value)*0.1;
+  uniforms.uTime.value=clock.getElapsedTime();
+  renderer.render(scene,camera);
+}
+loop();
+</script>
+</body>
+</html>

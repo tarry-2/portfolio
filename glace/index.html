@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GLACÉ — ice cold</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600&family=Bodoni+Moda:ital,wght@1,400;0,500&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;overflow:hidden;background:#05070a;cursor:none}
+  #gl{position:fixed;inset:0;width:100%;height:100%;display:block}
+  .ui{position:fixed;inset:0;z-index:10;pointer-events:none;color:#eaf2f6;font-family:"Archivo",sans-serif;font-weight:300}
+  .ui a{color:inherit;text-decoration:none;pointer-events:auto}
+  .top{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:32px 44px;font-size:12px;letter-spacing:.3em;text-transform:uppercase}
+  .top .grp{display:flex;gap:32px}
+  .logo{position:absolute;top:26px;left:50%;transform:translateX(-50%);font-weight:600;font-size:22px;letter-spacing:.42em}
+  .center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;width:100%}
+  .center h1{font-family:"Bodoni Moda",serif;font-style:italic;font-weight:400;font-size:clamp(48px,9vw,150px);line-height:.9;text-shadow:0 10px 60px rgba(0,0,0,.5)}
+  .center p{margin-top:20px;font-size:13px;letter-spacing:.32em;text-transform:uppercase;opacity:.85}
+  .bottom{position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-end;padding:36px 44px;font-size:11px;letter-spacing:.28em;text-transform:uppercase;opacity:.9}
+  .cursor{position:fixed;z-index:20;width:8px;height:8px;border-radius:50%;background:#dff1ff;transform:translate(-50%,-50%);pointer-events:none;mix-blend-mode:screen;box-shadow:0 0 18px 4px rgba(150,210,255,.6)}
+  @media(max-width:700px){.top{padding:20px}.bottom{padding:22px}.grp{gap:16px}}
+</style>
+</head>
+<body>
+<canvas id="gl"></canvas>
+<div class="ui">
+  <div class="logo">GLACÉ</div>
+  <div class="top"><div class="grp"><a href="#">Flavors</a><a href="#">Story</a></div><div class="grp"><a href="#">Store</a><a href="#">Cart (0)</a></div></div>
+  <div class="center"><h1>ice, <br>bottled.</h1><p>zero sugar · pure fizz</p></div>
+  <div class="bottom"><div>N°01 · Original Cold Brew Cola</div><div>Move to feel the fizz</div></div>
+</div>
+<div class="cursor" id="cur"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const canvas=document.getElementById('gl');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+const scene=new THREE.Scene();
+const camera=new THREE.OrthographicCamera(-1,1,1,-1,0,1);
+const U={uTex:{value:null},uMouse:{value:new THREE.Vector2(.5,.5)},uMV:{value:0},uTime:{value:0},uPA:{value:1},uIA:{value:1.5}};
+const vert=`varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position,1.);}`;
+const frag=`precision highp float;varying vec2 vUv;
+uniform sampler2D uTex;uniform vec2 uMouse;uniform float uMV,uTime,uPA,uIA;
+float hash(float n){return fract(sin(n)*43758.5453);}
+float grain(vec2 p){return fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453);}
+// rising carbonation bubbles
+float bubbles(vec2 uv,float t,vec2 m,float mv){
+  float acc=0.0;
+  for(int i=0;i<26;i++){
+    float fi=float(i);
+    float col=hash(fi*1.7);
+    float sp=0.05+hash(fi*3.3)*0.14;
+    float ph=hash(fi*5.1);
+    float bx=col+sin((t*0.3+fi)*0.7)*0.02;
+    float by=fract(ph + t*sp);           // 0->1 rising
+    vec2 bp=vec2(bx,by);
+    // extra bubbles spawned around cursor
+    float near=smoothstep(0.28,0.0,distance(vec2(bx,ph),m));
+    float r=(0.0016+hash(fi*7.7)*0.004)*(1.0+near*mv*3.0);
+    float d=distance((uv-bp)*vec2(uPA,1.0),vec2(0.0));
+    float ring=smoothstep(r,r*0.2,d)-smoothstep(r*0.55,0.0,d)*0.6;
+    acc+=max(ring,0.0)*(0.5+near);
+  }
+  return acc;
+}
+void main(){
+  vec2 uv=vUv;float rp=uPA,ri=uIA;
+  if(rp>ri)uv.y=(uv.y-0.5)*(ri/rp)+0.5;else uv.x=(uv.x-0.5)*(rp/ri)+0.5;
+  float d=distance(vUv*vec2(uPA,1.0),uMouse*vec2(uPA,1.0));
+  float infl=smoothstep(0.34,0.0,d);
+  // liquid refraction: gentle flowing distortion + stronger near cursor
+  uv.x+=sin(uv.y*16.0+uTime*0.8)*0.0022;
+  uv.y+=cos(uv.x*13.0+uTime*0.6)*0.0018;
+  vec2 dir=normalize(vUv-uMouse+1e-4);
+  uv+=dir*sin(d*30.0-uTime*3.0)*0.010*infl*(0.5+uMV*3.0);
+  float ca=infl*0.004*(0.6+uMV*4.0);
+  vec3 col;col.r=texture2D(uTex,uv+vec2(ca,0.)).r;col.g=texture2D(uTex,uv).g;col.b=texture2D(uTex,uv-vec2(ca,0.)).b;
+  // carbonation
+  float b=bubbles(vUv,uTime,uMouse,uMV);
+  col+=vec3(0.75,0.88,1.0)*b*0.9;
+  col*=1.0+infl*0.12;
+  // cool cinematic grade
+  col=mix(col,col*vec3(0.94,1.0,1.06),0.35);
+  float vig=smoothstep(1.2,0.35,distance(vUv,vec2(0.5)));col*=0.8+0.2*vig;
+  col+=(grain(vUv*vec2(950.,560.)+uTime)-0.5)*0.04;
+  gl_FragColor=vec4(col,1.);
+}`;
+const mat=new THREE.ShaderMaterial({uniforms:U,vertexShader:vert,fragmentShader:frag});
+scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2,2),mat));
+new THREE.TextureLoader().load('cola_a.webp',t=>{t.minFilter=t.magFilter=THREE.LinearFilter;U.uTex.value=t;U.uIA.value=t.image.width/t.image.height;});
+function rs(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h);U.uPA.value=w/h;}addEventListener('resize',rs);rs();
+let tx=.5,ty=.5,mx=.5,my=.5,lx=.5,ly=.5;const cur=document.getElementById('cur');
+addEventListener('mousemove',e=>{tx=e.clientX/innerWidth;ty=1-e.clientY/innerHeight;cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';});
+const clk=new THREE.Clock();
+(function loop(){requestAnimationFrame(loop);mx+=(tx-mx)*.08;my+=(ty-my)*.08;const v=Math.hypot(mx-lx,my-ly);lx=mx;ly=my;U.uMouse.value.set(mx,my);U.uMV.value+=(Math.min(v*8,1)-U.uMV.value)*.1;U.uTime.value=clk.getElapsedTime();renderer.render(scene,camera);})();
+</script>
+</body>
+</html>
