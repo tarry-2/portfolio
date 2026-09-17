@@ -72,6 +72,11 @@
   .work.live .thumb iframe{opacity:1}
   .work.live .thumb img{opacity:0}
   .thumb .badge{position:absolute;top:16px;left:16px;z-index:3;font-size:10px;letter-spacing:.2em;text-transform:uppercase;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);padding:7px 12px;border-radius:100px;border:1px solid var(--line)}
+  .group{margin-bottom:78px}
+  .gtitle{display:flex;align-items:baseline;gap:18px;margin-bottom:26px;padding-bottom:16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .gtitle h3{font-family:"Archivo Black",sans-serif;font-size:clamp(22px,3vw,40px);letter-spacing:-.01em}
+  .gtitle .gd{font-size:13px;color:var(--dim);letter-spacing:.02em}
+  .gtitle .gn{margin-left:auto;font-size:12px;color:var(--dim);letter-spacing:.24em}
   .info{padding:24px 26px 28px;display:flex;justify-content:space-between;align-items:flex-end;gap:20px}
   .info h3{font-family:"Archivo Black",sans-serif;font-size:26px;letter-spacing:.02em}
   .info .desc{font-size:13px;line-height:1.55;color:var(--dim);margin-top:8px;max-width:340px}
@@ -107,58 +112,85 @@
 
 <section class="works" id="work">
   <div class="lab"><h2>Selected Work</h2><span>2026</span></div>
-  <div class="grid">
-    <a class="work reveal" href="surge/" data-live="surge/">
-      <div class="thumb"><span class="badge">Beverage · Energy</span><img src="thumbs/surge.jpg" alt="SURGE"><iframe data-src="surge/" title="SURGE"></iframe></div>
-      <div class="info"><div><h3>SURGE</h3><div class="desc">폭발하는 탄산 스플래시. 커서를 빠르게 움직이면 기포가 터지고 레드가 맥동하는 WebGL 셰이더.</div></div><span class="view">View →</span></div>
-    </a>
-    <a class="work reveal" href="glace/" data-live="glace/">
-      <div class="thumb"><span class="badge">Beverage · Cold</span><img src="thumbs/glace.jpg" alt="GLACÉ"><iframe data-src="glace/" title="GLACÉ"></iframe></div>
-      <div class="info"><div><h3>GLACÉ</h3><div class="desc">얼음처럼 시원한 프리미엄 콜라. 상승하는 탄산 기포와 액체 굴절이 커서를 따라 흐릅니다.</div></div><span class="view">View →</span></div>
-    </a>
-    <a class="work reveal" href="nue/" data-live="nue/">
-      <div class="thumb"><span class="badge">Skincare · Editorial</span><img src="thumbs/nue.jpg" alt="nue"><iframe data-src="nue/" title="nue"></iframe></div>
-      <div class="info"><div><h3>nue</h3><div class="desc">글로우 스킨 캠페인. 커서 주변이 세럼처럼 일렁이는 물결 왜곡 + 미니멀 에디토리얼 UI.</div></div><span class="view">View →</span></div>
-    </a>
-    <a class="work reveal" href="atelier/" data-live="atelier/">
-      <div class="thumb"><span class="badge">Cosmetics · Set</span><img src="thumbs/atelier.jpg" alt="ATELIER"><iframe data-src="atelier/" title="ATELIER"></iframe></div>
-      <div class="info"><div><h3>ATELIER</h3><div class="desc">6종 스킨케어 세트가 커서에 자석처럼 끌려오고 밀리는 3D 틸트 인터랙션.</div></div><span class="view">View →</span></div>
-    </a>
-    <a class="work reveal" href="mise/" data-live="mise/">
-      <div class="thumb"><span class="badge">Food · Meal Kit</span><img src="thumbs/mise.jpg" alt="MISE"><iframe data-src="mise/" title="MISE"></iframe></div>
-      <div class="info"><div><h3>MISE</h3><div class="desc">김이 모락모락 피어오르고, 커서를 따라 재료가 지글지글 튀는 쿠킹 라이브.</div></div><span class="view">View →</span></div>
-    </a>
-    <a class="work reveal" href="maree/" data-live="maree/">
-      <div class="thumb"><span class="badge">Seafood · Fresh</span><img src="thumbs/maree.jpg" alt="MARÉE"><iframe data-src="maree/" title="MARÉE"></iframe></div>
-      <div class="info"><div><h3>MARÉE</h3><div class="desc">커서가 지나가면 물이 튀고 물방울이 반짝이는 프레시 스플래시 + 냉기 광채.</div></div><span class="view">View →</span></div>
-    </a>
-    <a class="work reveal" href="unit/" data-live="unit/">
-      <div class="thumb"><span class="badge">Franchise · F&B</span><img src="thumbs/unit.jpg" alt="UNIT"><iframe data-src="unit/" title="UNIT"></iframe></div>
-      <div class="info"><div><h3>UNIT</h3><div class="desc">매장 모자이크 타일이 커서 따라 물결치며 팝하는, 확장 브랜드용 그리드 효과.</div></div><span class="view">View →</span></div>
-    </a>
-    <a class="work reveal" href="roast/" data-live="roast/">
-      <div class="thumb"><span class="badge">Cafe · Coffee</span><img src="thumbs/roast.jpg" alt="ROAST"><iframe data-src="roast/" title="ROAST"></iframe></div>
-      <div class="info"><div><h3>ROAST</h3><div class="desc">라떼아트가 커서를 따라 소용돌이치는 스월 왜곡 + 모락모락 김.</div></div><span class="view">View →</span></div>
-    </a>
-    <a class="work reveal" href="stay/" data-live="stay/">
-      <div class="thumb"><span class="badge">Pension · Stay</span><img src="thumbs/stay.jpg" alt="STAY"><iframe data-src="stay/" title="STAY"></iframe></div>
-      <div class="info"><div><h3>STAY</h3><div class="desc">커서 따라 풍경이 깊이감 있게 움직이고 물안개가 흐르는, 차분한 패럴랙스.</div></div><span class="view">View →</span></div>
-    </a>
-    <a class="work reveal" href="forme/" data-live="forme/">
-      <div class="thumb"><span class="badge">Fashion · Editorial</span><img src="thumbs/forme.jpg" alt="FORME"><iframe data-src="forme/" title="FORME"></iframe></div>
-      <div class="info"><div><h3>FORME</h3><div class="desc">커서를 따라 천이 흩날리며 물결치는 패브릭 웨이브 + 에디토리얼 크로매틱.</div></div><span class="view">View →</span></div>
-    </a>
-    <a class="work reveal" href="crisp/" data-live="crisp/">
-      <div class="thumb"><span class="badge">Fast Food · F&B</span><img src="thumbs/crisp.jpg" alt="CRISP"><iframe data-src="crisp/" title="CRISP"></iframe></div>
-      <div class="info"><div><h3>CRISP</h3><div class="desc">커서 근처가 리듬감 있게 팝하고 튀어오르는 팝 바운스 + 쨍한 컬러.</div></div><span class="view">View →</span></div>
-    </a>
-    <a class="work reveal" href="motion/" data-live="motion/">
-      <div class="thumb"><span class="badge">Motion · AI Film</span><img src="thumbs/motion.jpg" alt="MOTION"><iframe data-src="motion/" title="MOTION"></iframe></div>
-      <div class="info"><div><h3>MOTION</h3><div class="desc">정지 이미지를 실제 움직이는 영상으로 — 머리 흩날림·스킨 글로우·카메라 푸시인. Image-to-video.</div></div><span class="view">View →</span></div>
-    </a>
-    <a class="work reveal" href="#contact" style="display:flex;align-items:center;justify-content:center;min-height:200px">
-      <div style="text-align:center"><div class="desc" style="margin:0 auto 10px">Your brand, next.</div><span class="view">Start a project →</span></div>
-    </a>
+  <div class="group">
+    <div class="gtitle"><h3>① Liquid &amp; Ripple</h3><span class="gd">커서를 따라 액체처럼 일렁이는 물결·기포 — 같은 효과, 이미지로 달라지는 느낌</span><span class="gn">04 WORKS</span></div>
+    <div class="grid">
+      <a class="work reveal" href="nue/" data-live="nue/">
+        <div class="thumb"><span class="badge">Skincare · Editorial</span><img src="thumbs/nue.jpg" alt="nue"><iframe data-src="nue/" title="nue"></iframe></div>
+        <div class="info"><div><h3>nue</h3><div class="desc">글로우 스킨 캠페인. 커서 주변이 세럼처럼 일렁이는 물결 왜곡 + 미니멀 에디토리얼 UI.</div></div><span class="view">View →</span></div>
+      </a>
+      <a class="work reveal" href="glace/" data-live="glace/">
+        <div class="thumb"><span class="badge">Beverage · Cold</span><img src="thumbs/glace.jpg" alt="GLACÉ"><iframe data-src="glace/" title="GLACÉ"></iframe></div>
+        <div class="info"><div><h3>GLACÉ</h3><div class="desc">얼음처럼 시원한 프리미엄 콜라. 상승하는 탄산 기포와 액체 굴절이 커서를 따라 흐릅니다.</div></div><span class="view">View →</span></div>
+      </a>
+      <a class="work reveal" href="surge/" data-live="surge/">
+        <div class="thumb"><span class="badge">Beverage · Energy</span><img src="thumbs/surge.jpg" alt="SURGE"><iframe data-src="surge/" title="SURGE"></iframe></div>
+        <div class="info"><div><h3>SURGE</h3><div class="desc">폭발하는 탄산 스플래시. 커서를 빠르게 움직이면 기포가 터지고 레드가 맥동하는 WebGL 셰이더.</div></div><span class="view">View →</span></div>
+      </a>
+      <a class="work reveal" href="maree/" data-live="maree/">
+        <div class="thumb"><span class="badge">Seafood · Fresh</span><img src="thumbs/maree.jpg" alt="MARÉE"><iframe data-src="maree/" title="MARÉE"></iframe></div>
+        <div class="info"><div><h3>MARÉE</h3><div class="desc">커서가 지나가면 물이 튀고 물방울이 반짝이는 프레시 스플래시 + 냉기 광채.</div></div><span class="view">View →</span></div>
+      </a>
+    </div>
+  </div>
+  <div class="group">
+    <div class="gtitle"><h3>② Warp &amp; Swirl</h3><span class="gd">자기장·김·소용돌이로 화면이 휘는 왜곡</span><span class="gn">03 WORKS</span></div>
+    <div class="grid">
+      <a class="work reveal" href="atelier/" data-live="atelier/">
+        <div class="thumb"><span class="badge">Cosmetics · Set</span><img src="thumbs/atelier.jpg" alt="ATELIER"><iframe data-src="atelier/" title="ATELIER"></iframe></div>
+        <div class="info"><div><h3>ATELIER</h3><div class="desc">6종 스킨케어 세트가 커서에 자석처럼 끌려오고 밀리는 3D 틸트 인터랙션.</div></div><span class="view">View →</span></div>
+      </a>
+      <a class="work reveal" href="mise/" data-live="mise/">
+        <div class="thumb"><span class="badge">Food · Meal Kit</span><img src="thumbs/mise.jpg" alt="MISE"><iframe data-src="mise/" title="MISE"></iframe></div>
+        <div class="info"><div><h3>MISE</h3><div class="desc">김이 모락모락 피어오르고, 커서를 따라 재료가 지글지글 튀는 쿠킹 라이브.</div></div><span class="view">View →</span></div>
+      </a>
+      <a class="work reveal" href="roast/" data-live="roast/">
+        <div class="thumb"><span class="badge">Cafe · Coffee</span><img src="thumbs/roast.jpg" alt="ROAST"><iframe data-src="roast/" title="ROAST"></iframe></div>
+        <div class="info"><div><h3>ROAST</h3><div class="desc">라떼아트가 커서를 따라 소용돌이치는 스월 왜곡 + 모락모락 김.</div></div><span class="view">View →</span></div>
+      </a>
+    </div>
+  </div>
+  <div class="group">
+    <div class="gtitle"><h3>③ Depth &amp; Structure</h3><span class="gd">깊이 패럴랙스·격자로 공간을 만드는 효과</span><span class="gn">02 WORKS</span></div>
+    <div class="grid">
+      <a class="work reveal" href="stay/" data-live="stay/">
+        <div class="thumb"><span class="badge">Pension · Stay</span><img src="thumbs/stay.jpg" alt="STAY"><iframe data-src="stay/" title="STAY"></iframe></div>
+        <div class="info"><div><h3>STAY</h3><div class="desc">커서 따라 풍경이 깊이감 있게 움직이고 물안개가 흐르는, 차분한 패럴랙스.</div></div><span class="view">View →</span></div>
+      </a>
+      <a class="work reveal" href="unit/" data-live="unit/">
+        <div class="thumb"><span class="badge">Franchise · F&B</span><img src="thumbs/unit.jpg" alt="UNIT"><iframe data-src="unit/" title="UNIT"></iframe></div>
+        <div class="info"><div><h3>UNIT</h3><div class="desc">매장 모자이크 타일이 커서 따라 물결치며 팝하는, 확장 브랜드용 그리드 효과.</div></div><span class="view">View →</span></div>
+      </a>
+    </div>
+  </div>
+  <div class="group">
+    <div class="gtitle"><h3>④ Playful Motion</h3><span class="gd">팝 바운스·천 흩날림 등 경쾌한 움직임</span><span class="gn">02 WORKS</span></div>
+    <div class="grid">
+      <a class="work reveal" href="crisp/" data-live="crisp/">
+        <div class="thumb"><span class="badge">Fast Food · F&B</span><img src="thumbs/crisp.jpg" alt="CRISP"><iframe data-src="crisp/" title="CRISP"></iframe></div>
+        <div class="info"><div><h3>CRISP</h3><div class="desc">커서 근처가 리듬감 있게 팝하고 튀어오르는 팝 바운스 + 쨍한 컬러.</div></div><span class="view">View →</span></div>
+      </a>
+      <a class="work reveal" href="forme/" data-live="forme/">
+        <div class="thumb"><span class="badge">Fashion · Editorial</span><img src="thumbs/forme.jpg" alt="FORME"><iframe data-src="forme/" title="FORME"></iframe></div>
+        <div class="info"><div><h3>FORME</h3><div class="desc">커서를 따라 천이 흩날리며 물결치는 패브릭 웨이브 + 에디토리얼 크로매틱.</div></div><span class="view">View →</span></div>
+      </a>
+    </div>
+  </div>
+  <div class="group">
+    <div class="gtitle"><h3>⑤ Film &amp; Animation</h3><span class="gd">정지 이미지가 실제 영상·3D 애니메이션으로</span><span class="gn">02 WORKS</span></div>
+    <div class="grid">
+      <a class="work reveal" href="anima/" data-live="anima/">
+        <div class="thumb"><span class="badge">3D Animation · Film</span><img src="thumbs/anima.jpg" alt="ANIMA"><iframe data-src="anima/" title="ANIMA"></iframe></div>
+        <div class="info"><div><h3>ANIMA</h3><div class="desc">픽사풍 3D 캐릭터가 살아 움직이는 브랜드 스토리 영상 — 카페·뷰티·주방 3씬. Image-to-video 애니메이션.</div></div><span class="view">View →</span></div>
+      </a>
+      <a class="work reveal" href="motion/" data-live="motion/">
+        <div class="thumb"><span class="badge">Motion · AI Film</span><img src="thumbs/motion.jpg" alt="MOTION"><iframe data-src="motion/" title="MOTION"></iframe></div>
+        <div class="info"><div><h3>MOTION</h3><div class="desc">정지 이미지를 실제 움직이는 영상으로 — 머리 흩날림·스킨 글로우·카메라 푸시인. Image-to-video.</div></div><span class="view">View →</span></div>
+      </a>
+      <a class="work reveal" href="#contact" style="display:flex;align-items:center;justify-content:center;min-height:200px">
+        <div style="text-align:center"><div class="desc" style="margin:0 auto 10px">Your brand, next.</div><span class="view">Start a project →</span></div>
+      </a>
+    </div>
   </div>
 </section>
 
