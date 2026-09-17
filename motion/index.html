@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nue — the film</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400&family=Newsreader:ital@1&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}html,body{height:100%;overflow:hidden;background:#0c0a09;cursor:default}
+video{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.grade{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 120% at 50% 40%,transparent 55%,rgba(0,0,0,.35))}
+.ui{position:fixed;inset:0;z-index:10;pointer-events:none;color:#f5f1ea;font-family:"Archivo",sans-serif;font-weight:300;text-shadow:0 2px 30px rgba(0,0,0,.4)}
+.ui a{color:inherit;text-decoration:none;pointer-events:auto}
+.top{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:32px 44px;font-size:12px;letter-spacing:.3em;text-transform:uppercase}.top .grp{display:flex;gap:30px}
+.logo{position:absolute;top:26px;left:50%;transform:translateX(-50%);font-family:"Newsreader",serif;font-style:italic;font-size:30px}
+.center{position:absolute;left:44px;bottom:120px}
+.center .k{font-size:12px;letter-spacing:.4em;text-transform:uppercase;color:#e0b9a0;margin-bottom:14px}
+.center h1{font-family:"Newsreader",serif;font-style:italic;font-size:clamp(44px,8vw,120px);line-height:.92}
+.bottom{position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-between;padding:34px 44px;font-size:11px;letter-spacing:.26em;text-transform:uppercase;opacity:.85}
+.tag{position:absolute;top:50%;right:44px;transform:translateY(-50%);writing-mode:vertical-rl;font-size:11px;letter-spacing:.3em;text-transform:uppercase;opacity:.6}
+</style></head><body>
+<video src="nue_video.mp4" autoplay loop muted playsinline></video>
+<div class="grade"></div>
+<div class="ui">
+  <div class="logo">nue</div>
+  <div class="top"><div class="grp"><a href="#">Film</a><a href="#">Campaign</a></div><div class="grp"><a href="#">Shop</a><a href="#">Cart (0)</a></div></div>
+  <div class="center"><div class="k">AI-generated film · Image to motion</div><h1>beauty,<br>in motion.</h1></div>
+  <div class="tag">The Living Skin · FW26</div>
+  <div class="bottom"><div>Film N°01 · Generated with Wan 2.7</div><div>Auto-playing</div></div>
+</div>
+</body></html>
