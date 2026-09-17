@@ -97,6 +97,8 @@
   .work.live .thumb iframe{opacity:1}
   .work.live .thumb img{opacity:0}
   .thumb .badge{position:absolute;top:16px;left:16px;z-index:3;font-size:10px;letter-spacing:.2em;text-transform:uppercase;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);padding:7px 12px;border-radius:100px;border:1px solid var(--line)}
+  .thumb .big{position:absolute;top:14px;right:14px;z-index:4;display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(226,35,26,.85);backdrop-filter:blur(6px);padding:8px 14px;border-radius:100px;border:1px solid rgba(255,255,255,.25);cursor:pointer;box-shadow:0 4px 14px rgba(226,35,26,.4);transition:.25s;font-family:inherit}
+  .thumb .big:hover{background:#e2231a;transform:scale(1.05)}
   .group{margin-bottom:78px}
   .gtitle{display:flex;align-items:baseline;gap:18px;margin-bottom:26px;padding-bottom:16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
   .gtitle h3{font-family:"Archivo Black",sans-serif;font-size:clamp(22px,3vw,40px);letter-spacing:-.01em}
@@ -173,23 +175,23 @@
     <div class="gtitle"><h3>Film &amp; Animation</h3><span class="gd">정지 이미지가 실제 영상·3D 애니메이션으로 — 풀릴 + 씬별 개별 필름</span><span class="gn">05 WORKS</span></div>
     <div class="grid">
       <a class="work reveal" href="anima/" data-live="anima/">
-        <div class="thumb"><span class="badge">3D Animation · Full Reel</span><img src="thumbs/anima.jpg" alt="ANIMA"><iframe data-src="anima/" title="ANIMA"></iframe></div>
+        <div class="thumb"><span class="badge">3D Animation · Full Reel</span><button class="big" data-video="anima/story_anima.mp4">⤢ 크게 보기</button><img src="thumbs/anima.jpg" alt="ANIMA"><iframe data-src="anima/" title="ANIMA"></iframe></div>
         <div class="info"><div><h3>ANIMA</h3><div class="desc">픽사풍 3D 캐릭터가 살아 움직이는 브랜드 스토리 풀 영상 — 카페·뷰티·주방 3씬 이어보기.</div></div><span class="view">View →</span></div>
       </a>
       <a class="work reveal" href="anima-cafe/" data-live="anima-cafe/">
-        <div class="thumb"><span class="badge">Cafe · 3D Film</span><img src="thumbs/anima-cafe.jpg" alt="BREW"><iframe data-src="anima-cafe/" title="BREW"></iframe></div>
+        <div class="thumb"><span class="badge">Cafe · 3D Film</span><button class="big" data-video="anima-cafe/v.mp4">⤢ 크게 보기</button><img src="thumbs/anima-cafe.jpg" alt="BREW"><iframe data-src="anima-cafe/" title="BREW"></iframe></div>
         <div class="info"><div><h3>BREW</h3><div class="desc">픽사풍 바리스타 캐릭터가 라떼아트를 붓는 개별 3D 브랜드 필름.</div></div><span class="view">View →</span></div>
       </a>
       <a class="work reveal" href="anima-beauty/" data-live="anima-beauty/">
-        <div class="thumb"><span class="badge">Beauty · 3D Film</span><img src="thumbs/anima-beauty.jpg" alt="GLOW"><iframe data-src="anima-beauty/" title="GLOW"></iframe></div>
+        <div class="thumb"><span class="badge">Beauty · 3D Film</span><button class="big" data-video="anima-beauty/v.mp4">⤢ 크게 보기</button><img src="thumbs/anima-beauty.jpg" alt="GLOW"><iframe data-src="anima-beauty/" title="GLOW"></iframe></div>
         <div class="info"><div><h3>GLOW</h3><div class="desc">디즈니풍 캐릭터가 반짝임 속에서 스킨케어하는 개별 3D 뷰티 필름.</div></div><span class="view">View →</span></div>
       </a>
       <a class="work reveal" href="anima-food/" data-live="anima-food/">
-        <div class="thumb"><span class="badge">Food · 3D Film</span><img src="thumbs/anima-food.jpg" alt="SAVOR"><iframe data-src="anima-food/" title="SAVOR"></iframe></div>
+        <div class="thumb"><span class="badge">Food · 3D Film</span><button class="big" data-video="anima-food/v.mp4">⤢ 크게 보기</button><img src="thumbs/anima-food.jpg" alt="SAVOR"><iframe data-src="anima-food/" title="SAVOR"></iframe></div>
         <div class="info"><div><h3>SAVOR</h3><div class="desc">셰프 캐릭터가 시그니처 요리를 선보이는 개별 3D 푸드 필름.</div></div><span class="view">View →</span></div>
       </a>
       <a class="work reveal" href="motion/" data-live="motion/">
-        <div class="thumb"><span class="badge">Motion · AI Film</span><img src="thumbs/motion.jpg" alt="MOTION"><iframe data-src="motion/" title="MOTION"></iframe></div>
+        <div class="thumb"><span class="badge">Motion · AI Film</span><button class="big" data-video="motion/nue_video.mp4">⤢ 크게 보기</button><img src="thumbs/motion.jpg" alt="MOTION"><iframe data-src="motion/" title="MOTION"></iframe></div>
         <div class="info"><div><h3>MOTION</h3><div class="desc">정지 이미지를 실제 움직이는 영상으로 — 머리 흩날림·스킨 글로우·카메라 푸시인. Image-to-video.</div></div><span class="view">View →</span></div>
       </a>
     </div>
@@ -305,6 +307,14 @@
         }
       });
       vfc.addEventListener('click',()=>{ vfull.classList.remove('show'); vfv.pause(); });
+      // 포트폴리오 각 영상 카드 "크게 보기"
+      document.querySelectorAll('.big[data-video]').forEach(btn=>{
+        btn.addEventListener('click',e=>{
+          e.preventDefault(); e.stopPropagation();
+          vfv.src=btn.dataset.video; vfull.classList.add('show'); vfv.muted=false; vfv.currentTime=0; vfv.play();
+          if(screen.orientation&&screen.orientation.lock){ screen.orientation.lock('portrait').catch(()=>{}); }
+        });
+      });
       v.play().catch(()=>{});
     }
   })();
