@@ -1,0 +1,47 @@
+Mode: built-in image_gen. One generation per asset.
+
+chinese-jjamppong
+Exact prompt:
+Use case: photorealistic-natural
+Asset type: wide cinematic website hero photographic asset, landscape 16:9
+Primary request: spectacular Korean Chinese jjamppong seafood noodle bowl with wok flame in background.
+Subject: glossy vermilion spicy broth, springy noodles, fresh mussels, shrimp and squid in a beautiful black bowl.
+Composition/framing: food right of center, substantial dark negative space on left, close-up professional food photography, shallow depth of field.
+Lighting/mood: dramatic cinematic firelight and appetizing steam, high-end restaurant campaign.
+Color palette: vermilion red, black and gold.
+Constraints: original realistic standalone photograph, no UI, no text, no logos, no watermark.
+
+izakaya-yakitori
+Exact prompt:
+Use case: photorealistic-natural
+Asset type: wide cinematic website hero photographic asset, landscape 16:9
+Primary request: atmospheric premium Japanese izakaya yakitori charcoal grill, glowing amber charcoal, sake and warm lantern bokeh.
+Subject: appetizing beautifully glazed and charred chicken skewers over a small charcoal grill, sake vessel in softly focused background.
+Composition/framing: skewers right lower foreground, dramatic depth, darker left area for website copy.
+Lighting/mood: intimate late-night lantern glow, smoky atmospheric premium food photography.
+Color palette: midnight indigo and amber.
+Constraints: original realistic standalone photograph, no UI, no text, no logos, no watermark.
+
+korean-grilled-beef
+Exact prompt:
+Use case: photorealistic-natural
+Asset type: wide editorial website hero photographic asset, landscape 16:9
+Primary request: dramatic contemporary Korean charcoal grilled beef dining photograph.
+Subject: beautifully seared juicy grilled beef on dark ceramic with small banchan dishes and fresh perilla leaves.
+Composition/framing: food arranged on right, quieter left area for website copy, sophisticated editorial restaurant composition.
+Lighting/mood: direct warm side-light, sculptural shadows, tactile premium food photograph.
+Color palette: deep green and ivory editorial aesthetic.
+Constraints: original realistic standalone photograph, no UI, no text, no logos, no watermark.
+
+wholesale-produce
+Exact prompt:
+Use case: photorealistic-natural
+Asset type: wide website hero photographic asset, landscape 16:9
+Primary request: overhead abundance of fresh wholesale produce in crates.
+Subject: vibrant green leafy vegetables, ripe tomatoes, citrus and mushrooms neatly abundant in produce crates, realistic cold-chain freshness and fine water droplets.
+Composition/framing: wide overhead composition, plentiful fresh harvest with clean organized crate geometry.
+Lighting/mood: crisp natural daylight, energetic modern wholesale food brand photograph.
+Color palette: crisp cobalt blue crate accents and vibrant green, natural produce colors.
+Constraints: original realistic standalone photograph, no UI, no text, no logos, no watermark.
+
+
